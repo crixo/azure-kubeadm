@@ -1,18 +1,15 @@
 # Install k8s cluster on azure VMs using kubeadm
 
-This walkthough is full inspired by a [Swan](https://medium.com/@shawnlu_86806)'s [article on medium](https://medium.com/@shawnlu_86806/how-to-create-a-k8s-cluster-with-kubeadm-on-azure-357210e2eb50)
-I simply try to put everything together in a very simple way to help anyone else who is interested on following the same approach.
-Any improvement, refinements and suggestions are more then welcome.
-
 *<code>&ast;</code>local.<code>&ast;</code>* files contains sensitive data so they have not been pushed on the remote repo. The equivalent file contains the value placeholder to be replaced w/ your personal values.
 
 -  provision azure resources
 *from local shell*
 ```
-cd extras/azure-kubeadm/
-./azure-resources-provisioning.sh
-scp azure-cloud-conf.local.conf cristiano@master1-testk8s.westeurope.cloudapp.azure.com:~/cloud.conf
-scp kubeadm.conf cristiano@master1-testk8s.westeurope.cloudapp.azure.com:~/
+bash azure-resources-provisioning.sh
+scp azure-cloud-conf.local.conf cristiano@master-1-testk8s.westeurope.cloudapp.azure.com:~/cloud.conf
+scp kubeadm.conf cristiano@master-1-testk8s.westeurope.cloudapp.azure.com:~/
+scp k8sMaster.sh cristiano@master-1-testk8s.westeurope.cloudapp.azure.com:~/
+scp basic.yaml cristiano@master-1-testk8s.westeurope.cloudapp.azure.com:~/
 ```
 
 *from k8s-master1 shell*
@@ -22,7 +19,7 @@ sudo cp ~/cloud.conf /etc/kubernetes
 
 -  create the cluster using kubeadm and configure master node
 ```
-bash ./k8sMaster.sh | tee ~/master.out
+bash k8sMaster.sh | tee ~/master.out
 ```
 
 OR
@@ -87,8 +84,26 @@ kubectl apply -f https://raw.githubusercontent.com/Azure-Samples/azure-voting-ap
 kubectl get pod,svc
 ```
 
+-  make sure canal has been installed on all nodes
+```
+kubectl get pods -n kube-system -o wide | grep canal
+```
+
 -  test ClusterIP on all nodes
 *from k8s nodes shell*
 ```
 curl http://<basicservice ClusterIP> 
+```
+
+-  test NodePort on all nodes
+*from local shell*
+```
+curl http://master-1-testk8s.westeurope.cloudapp.azure.com:<NodePort>
+curl http://worker-1-testk8s.westeurope.cloudapp.azure.com:<NodePort>
+curl http://worker-2-testk8s.westeurope.cloudapp.azure.com:<NodePort>
+```
+
+-  if you'd like to deploy application workload on master node too, you have to remove the taint that prevent it
+```
+kubectl taint nodes --all node-role.kubernetes.io/master:NoSchedule-
 ```

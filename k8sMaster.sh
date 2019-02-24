@@ -1,6 +1,6 @@
 echo "Configure master node"
 
-sudo kubeadm init -config kubeadm.conf
+sudo kubeadm init --config kubeadm.conf
 
 sleep 5
 

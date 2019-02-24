@@ -18,6 +18,7 @@ metadata:
 spec:
   selector:
     type: webserver
+  type: NodePort
   ports:
   - protocol: TCP
     port: 80
