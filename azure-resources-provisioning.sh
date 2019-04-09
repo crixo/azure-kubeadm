@@ -1,16 +1,21 @@
-RESOURCE_GROUP='testk8s'
+if [ -z "$1" ]
+  then
+    echo "No resource group supplied"
+    exit
+fi
+
+RESOURCE_GROUP=$1
 LOCATION='westeurope'
-IMAGE='UbuntuLTS'
-#MASTER_SKU='Standard_D1_v2'
+IMAGE='Canonical:UbuntuServer:16.04.0-LTS:16.04.201903130'
 MASTER_SKU='Standard_B2s'
 AGENT_SKU='Standard_B1s'
-VNET='testk8s-vnet'
+VNET="$RESOURCE_GROUP-vnet"
 SUBNET='default'
-NSG='testk8s-nsg'
-ROUTE_TABLE='testk8s-routetable'
+NSG="$RESOURCE_GROUP-nsg"
+ROUTE_TABLE="$RESOURCE_GROUP-routetable"
 SUBSCRIPTION='d9e06499-49d3-4d60-b301-3ff03e019bb7' # "Visual Studio Ultimate with MSDN"
-MASTERS_AVAILABILITY_SET='testk8s-m'
-WORKERS_AVAILABILITY_SET='testk8s-w'
+MASTERS_AVAILABILITY_SET="$RESOURCE_GROUP-m"
+WORKERS_AVAILABILITY_SET="$RESOURCE_GROUP-w"
 MASTER_PREFIX_NAME='master'
 WORKER_PREFIX_NAME='worker'
 ASG_NODE_NAME='asg-k8s-node'

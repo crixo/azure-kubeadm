@@ -5,11 +5,10 @@
 -  provision azure resources
 *from local shell*
 ```
-bash azure-resources-provisioning.sh
-scp azure-cloud-conf.local.conf cristiano@master-1-testk8s.westeurope.cloudapp.azure.com:~/cloud.conf
-scp kubeadm.conf cristiano@master-1-testk8s.westeurope.cloudapp.azure.com:~/
-scp k8sMaster.sh cristiano@master-1-testk8s.westeurope.cloudapp.azure.com:~/
-scp basic.yaml cristiano@master-1-testk8s.westeurope.cloudapp.azure.com:~/
+RESOURCE_GROUP='your_rg_group'
+bash azure-resources-provisioning.sh $RESOURCE_GROUP
+scp "azure-cloud-conf-$RESOURCE_GROUP.local.conf" "cristiano@master-1-$RESOURCE_GROUP.westeurope.cloudapp.azure.com:~/cloud.conf"
+scp kubeadm.conf k8sMaster.sh basic.yaml "cristiano@master-1-$RESOURCE_GROUP.westeurope.cloudapp.azure.com:~/"
 ```
 
 *from k8s-master1 shell*
