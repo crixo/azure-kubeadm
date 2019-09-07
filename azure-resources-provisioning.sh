@@ -8,7 +8,7 @@ RESOURCE_GROUP=$1
 LOCATION='westeurope'
 IMAGE='Canonical:UbuntuServer:16.04.0-LTS:16.04.201903130'
 MASTER_SKU='Standard_B2s'
-AGENT_SKU='Standard_B1s'
+AGENT_SKU='Standard_B2s'
 VNET="$RESOURCE_GROUP-vnet"
 SUBNET='default'
 NSG="$RESOURCE_GROUP-nsg"
@@ -77,6 +77,19 @@ az network nsg rule create \
   --source-address-prefix Internet \
   --source-port-range "*" \
   --destination-port-range 30000-32767 \
+  --destination-asgs $ASG_NODE_NAME
+
+  az network nsg rule create \
+  -g $RESOURCE_GROUP  \
+  --nsg-name $NSG \
+  -n Allow-Kubectl \
+  --access Allow \
+  --protocol Tcp \
+  --direction Inbound \
+  --priority 130 \
+  --source-address-prefix Internet \
+  --source-port-range "*" \
+  --destination-port-range 6443 \
   --destination-asgs $ASG_NODE_NAME
 
 echo -e "\033[1;36m Creating the VNET \033[0m"

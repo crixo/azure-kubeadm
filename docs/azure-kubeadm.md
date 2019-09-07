@@ -5,10 +5,7 @@
 -  provision azure resources
 *from local shell*
 ```
-RESOURCE_GROUP='your_rg_group'
-bash azure-resources-provisioning.sh $RESOURCE_GROUP
-scp "azure-cloud-conf-$RESOURCE_GROUP.local.conf" "cristiano@master-1-$RESOURCE_GROUP.westeurope.cloudapp.azure.com:~/cloud.conf"
-scp kubeadm.conf k8sMaster.sh basic.yaml "cristiano@master-1-$RESOURCE_GROUP.westeurope.cloudapp.azure.com:~/"
+bash ./azure-configure-master.sh
 ```
 
 *from k8s-master1 shell*
@@ -25,6 +22,7 @@ OR
 
 
 -  create the cluster using kubeadm
+
 *from k8s-master1 shell*
 ```
 sudo kubeadm init --config kubeadm.conf
@@ -65,6 +63,15 @@ wget https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation
 
 kubectl apply -f rbac.yaml
 kubectl apply -f canal.yaml
+```
+
+-  join the worker node(s)
+*from worker node(s) shell*
+use the kubeadm join... saved in master.out
+
+- download k8s configuration
+```
+scp "cristiano@master-1-$RESOURCE_GROUP.westeurope.cloudapp.azure.com:~/.kube/config" k8s.local.conf
 ```
 
 -  deploy a basic ngnix app

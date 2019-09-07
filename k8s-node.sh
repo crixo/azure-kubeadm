@@ -33,7 +33,8 @@ sleep 3
 # sudo apt-get install -y docker-ce=18.06.1~ce~3-0~ubuntu 
 
 # Ubuntu 16.04.6 LTS
-sudo apt-get install -y --allow-downgrades docker.io=18.06.1-0ubuntu1.2~16.04.1
+#sudo apt-get install -y --allow-downgrades docker.io=18.06.1-0ubuntu1.2~16.04.1
+sudo apt-get install -y docker.io
 
 echo
 echo "Install kubeadm and kubectl"
@@ -44,8 +45,8 @@ sudo sh -c "echo 'deb http://apt.kubernetes.io/ kubernetes-xenial main' >> /etc/
 sudo sh -c "curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -"
 
 sudo apt-get update
-sudo apt-get install -y kubernetes-cni=0.6.0-00
-sudo apt-get install -y kubeadm=1.13.1-00 kubelet=1.13.1-00 kubectl=1.13.1-00
+
+sudo apt-get install -y kubeadm=1.15.1-00 kubelet=1.15.1-00 kubectl=1.15.1-00
 
 echo "k8s node configuration Done"
 
