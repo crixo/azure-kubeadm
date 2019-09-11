@@ -7,8 +7,9 @@ fi
 RESOURCE_GROUP=$1
 LOCATION='westeurope'
 IMAGE='Canonical:UbuntuServer:16.04.0-LTS:16.04.201903130'
-MASTER_SKU='Standard_B2s'
-AGENT_SKU='Standard_B2s'
+# azure VM cost comparison: https://azureprice.net/
+MASTER_SKU='Standard_B2s' #8GB ram: Standard_B2ms
+AGENT_SKU='Standard_B1s'
 VNET="$RESOURCE_GROUP-vnet"
 SUBNET='default'
 NSG="$RESOURCE_GROUP-nsg"

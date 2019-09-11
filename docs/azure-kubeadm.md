@@ -75,10 +75,18 @@ scp "cristiano@master-1-$RESOURCE_GROUP.westeurope.cloudapp.azure.com:~/.kube/co
 ```
 
 -  deploy a basic ngnix app
+*from local shell*
+```
+kubectl --kubeconfig k8s.local.conf create -f basic.yaml
+```
+
+OR
+
 *from k8s-master1 shell*
 ```
 kubectl create -f basic.yaml
 ```
+
 OR a more complex app
 ```
 kubectl apply -f https://raw.githubusercontent.com/Azure-Samples/azure-voting-app-redis/master/azure-vote-all-in-one-redis.yaml
