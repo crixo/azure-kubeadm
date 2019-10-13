@@ -74,6 +74,16 @@ use the kubeadm join... saved in master.out
 scp "cristiano@master-1-$RESOURCE_GROUP.westeurope.cloudapp.azure.com:~/.kube/config" k8s.local.conf
 ```
 
+- use kubectl completion
+
+  -  https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-on-macos
+  -  https://learnk8s.io/blog/kubectl-productivity/#bash-on-macos  
+
+then run the latest bash interactive not the standard login
+```
+exec bash
+```
+
 -  deploy a basic ngnix app
 *from local shell*
 ```
