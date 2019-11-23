@@ -20,10 +20,11 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 echo
 echo "Download Canal plugin and RBAC YAML files and apply"
 
-wget https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/canal/rbac.yaml -O rbac.yaml
-wget https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/canal/canal.yaml  -O canal.yaml
+#wget https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/canal/rbac.yaml -O rbac.yaml
+#wget https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/canal/canal.yaml  -O canal.yaml
+wget https://docs.projectcalico.org/v3.8/manifests/canal.yaml  -O canal.yaml
 
-kubectl apply -f rbac.yaml
+#kubectl apply -f rbac.yaml
 kubectl apply -f canal.yaml
 sleep 3
 

@@ -84,6 +84,8 @@ then run the latest bash interactive not the standard login
 exec bash
 ```
 
+- modify the k8s.local.conf replacing internal mater node ip with public dns as configured in kubeadm.conf
+
 -  deploy a basic ngnix app
 *from local shell*
 ```
@@ -122,12 +124,13 @@ curl http://<basicservice ClusterIP>
 -  test NodePort on all nodes
 *from local shell*
 ```
-curl http://master-1-testk8s.westeurope.cloudapp.azure.com:<NodePort>
-curl http://worker-1-testk8s.westeurope.cloudapp.azure.com:<NodePort>
-curl http://worker-2-testk8s.westeurope.cloudapp.azure.com:<NodePort>
+NODE_PORT=<NodePort>
+curl http://master-1-$RESOURCE_GROUP.westeurope.cloudapp.azure.com:$NODE_PORT
+curl http://worker-1-$RESOURCE_GROUP.westeurope.cloudapp.azure.com:$NODE_PORT
+curl http://worker-2-$RESOURCE_GROUP.westeurope.cloudapp.azure.com:$NODE_PORT
 ```
 
--  if you'd like to deploy application workload on master node too, you have to remove the taint that prevent it
+-  if you'd like to deploy application workload on master node too, you have to remove the taint that prevents it
 ```
 kubectl taint nodes --all node-role.kubernetes.io/master:NoSchedule-
 ```

@@ -6,7 +6,7 @@ fi
 
 RESOURCE_GROUP=$1
 LOCATION='westeurope'
-IMAGE='Canonical:UbuntuServer:16.04.0-LTS:16.04.201903130'
+IMAGE='Canonical:UbuntuServer:18.04-LTS:18.04.201911130'
 # azure VM cost comparison: https://azureprice.net/
 MASTER_SKU='Standard_B2s' #8GB ram: Standard_B2ms
 AGENT_SKU='Standard_B1s'
@@ -130,6 +130,9 @@ az vm create -g $RESOURCE_GROUP -n "$MASTER_PREFIX_NAME-1" \
   --ssh-key-value $PUBLIC_SSH_KEY_FILE_PATH
   ##--generate-ssh-keys
   ##--os-disk-size-gb $OS_DISK_SIZE_GB \
+
+#MASTER_NODE_IP=az vm show -d -g $RESOURCE_GROUP -n "$MASTER_PREFIX_NAME-1" --query publicIps -o tsv
+#echo -e "\033[1;36m Master node IP: $MASTER_NODE_IP \033[0m"
 
 echo -e "\033[1;36m Creating the worker node(s) availability set \033[0m"
 az vm availability-set create -n $WORKERS_AVAILABILITY_SET -g $RESOURCE_GROUP

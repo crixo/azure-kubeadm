@@ -1,5 +1,5 @@
 #!/bin/bash -x
-echo "This script is written to work with Ubuntu 16.04"
+echo "This script is written to work with Ubuntu 18.04"
 sleep 3
 echo
 echo "Disable swap until next reboot"
@@ -46,7 +46,9 @@ sudo sh -c "curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-
 
 sudo apt-get update
 
-sudo apt-get install -y kubeadm=1.15.1-00 kubelet=1.15.1-00 kubectl=1.15.1-00
+sudo apt-get install -y kubeadm=1.16.1-00 kubelet=1.16.1-00 kubectl=1.16.1-00
+
+sudo apt-mark hold kubelet kubeadm kubectl
 
 echo "k8s node configuration Done"
 
